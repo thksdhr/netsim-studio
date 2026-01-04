@@ -1,0 +1,35 @@
+name: "构建 Docker 镜像"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "构建 Docker 镜像..."
+
+      - name: "获取 Build 文件"
+        uses: actions/checkout@v4
+
+      - name: "获取当前工作目录"
+        run: ls -la
+
+      # - name: "登录 Docker Hub"
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      #     password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: "构建 Docker 镜像"
+        run: |
+          pwd
+          ./dockerfile/build.sh
+
+      - name: "上传 Docker 镜像至 GitHub"
+        uses: actions/upload-artifact@v4
+        with:
+          name: netsim-studio.tar
+          path: ./dockerfile/netsim-studio.tar

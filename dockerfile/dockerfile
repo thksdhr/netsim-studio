@@ -1,0 +1,23 @@
+FROM node:trixie-slim
+LABEL netsim-studio_By="faawrqweqw"
+LABEL Dockerfile-By="taoziG"
+LABEL Description="Netsim Studio Docker Image; Netsim Studio 是一款基于 Web 的网络仿真软件，支持多种网络设备和协议的模拟，适用于网络教学和实验"
+USER root
+
+# 复制当前目录内容到容器内的 /app 目录
+COPY netsim-studio /app
+
+# 设置工作目录
+WORKDIR /app
+
+# 删除 Dockerfile 目录以减小镜像体积
+RUN ["rm", "-rf", "dockerfile"]
+
+# Install Node.js dependencies
+RUN ["npm", "install"]
+
+# 暴露端口
+EXPOSE 5173
+
+# 启动命令(可覆写)
+CMD ["npm", "run", "dev:client"]

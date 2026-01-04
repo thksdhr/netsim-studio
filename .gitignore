@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Dockerfile
+dockerfile/netsim-studio
+dockerfile/*.tar
